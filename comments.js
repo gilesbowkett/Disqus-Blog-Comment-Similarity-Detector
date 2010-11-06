@@ -5,8 +5,7 @@ var sys = require("sys"),
 // actual sample data pulled directly from the Disqus code on the MetaOptimize blog post
 
 // many tweets are identical in their content, except for using a distinct shortened URL, including several instances
-// where the url-shortener is the same service. in the following actual bona fide real-world sample data, all the tweets
-// but one are highly similar.
+// where the url-shortener is the same service. all the tweets but one are highly similar.
 
 var DsqLocal = {
   'trackbacks': [
@@ -98,9 +97,6 @@ var DsqLocal = {
 
 // extract the "excerpt" property on each "trackback" - in reality the text of each tweet
 var tweets = _.pluck(DsqLocal.trackbacks, "excerpt");
-
-// using underscore.js, eliminating actual duplicates is free. just call _.uniq()
-// sys.puts(_.isEqual(tweets, _.uniq(tweets)));
 
 // tokenize the tweets; we need them in array format for our upcoming comparison
 var tokenized = [];
