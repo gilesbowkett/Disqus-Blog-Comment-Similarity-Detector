@@ -88,12 +88,6 @@ var DsqLocal = {
     'excerpt':  "NLP Challenge: Find semantically related terms over a large vocabulary (1M)? http:\/\/bit.ly\/cyj8SG ",
     'type':    "trackback"    }
 ,    {
-    'author_name':  "Joe",
-    'author_url':  "http:\/\/twitter.com\/josephjay\/status\/734141192601601",
-    'date':    "11\/06\/2010 02:20 AM",
-    'excerpt':  "NLP Challenge: Find semantically related terms over a large vocabulary (1M)? http:\/\/bit.ly\/cyj8SG ",
-    'type':    "trackback"    }
-,    {
     'author_name':  "Spencer Tipping",
     'author_url':  "http:\/\/twitter.com\/spencertipping\/status\/734347149713408",
     'date':    "11\/06\/2010 02:20 AM",
@@ -101,32 +95,41 @@ var DsqLocal = {
     'type':    "trackback"    }]
 };
 
+// extract the "excerpt" property on each "trackback" - in reality the text of each tweet
 var tweets = _.pluck(DsqLocal.trackbacks, "excerpt");
-// are there duplicates?
+
+// using underscore.js, eliminating actual duplicates is free. just call _.uniq()
 // sys.puts(_.isEqual(tweets, _.uniq(tweets)));
 
+// tokenize the tweets; we need them in array format for our upcoming comparison
 var tokenized = [];
 _.map(_.uniq(tweets), function(tweet) { tokenized.push(tweet.split(" ")) });
-// sys.puts(utils.inspect(tokenized));
 
+// compare every tweet to every other tweet
 _.each(tokenized, function(tweetAsArray1) {
   _.each(tokenized, function(tweetAsArray2) {
     if (tweetAsArray1 != tweetAsArray2) {
-      sys.puts("\n") ;
-      sys.puts("comparing: ");
-      sys.puts(tweetAsArray1);
-      sys.puts(" to: ");
-      sys.puts(tweetAsArray2);
-      sys.puts("\n") ;
-      var intersection = _.intersect(tweetAsArray1, tweetAsArray2);
-      if (intersection) {
-        sys.puts("intersect: " + intersection);
-        sys.puts("intersect length: " + intersection.length);
-        sys.puts("tweet 1 length: " + tweetAsArray1.length) ;
-        sys.puts("percentage of tweet 1 intersected: " + Math.round(intersection.length / tweetAsArray1.length * 100));
-        sys.puts("tweet 2 length: " + tweetAsArray2.length) ;
-        sys.puts("percentage of tweet 2 intersected: " + Math.round(intersection.length / tweetAsArray2.length * 100));
-      }
+      // the similarity of a tweet to another tweet is the ratio of its intersecting elements to its total elements
+      var intersection = _.intersect(tweetAsArray1, tweetAsArray2),
+          similarityPercentageForTweet1 = Math.round(intersection.length / tweetAsArray1.length * 100);
+          similarityPercentageForTweet2 = Math.round(intersection.length / tweetAsArray2.length * 100);
+
+      // you can uncomment this to see a report, tweet by tweet, on what this method is doing
+      // sys.puts("\n") ;
+      // sys.puts("comparing: ");
+      // sys.puts(tweetAsArray1);
+      // sys.puts(" to: ");
+      // sys.puts(tweetAsArray2);
+      // sys.puts("\n") ;
+      // if (intersection) {
+      //   sys.puts("intersect: " + intersection);
+      //   sys.puts("intersect length: " + intersection.length);
+      //   sys.puts("tweet 1 length: " + tweetAsArray1.length) ;
+      //   sys.puts("percentage of tweet 1 intersected: " + similarityPercentageForTweet1);
+      //   sys.puts("tweet 2 length: " + tweetAsArray2.length) ;
+      //   sys.puts("percentage of tweet 2 intersected: " + similarityPercentageForTweet2);
+      // }
+
     }
   });
 });
