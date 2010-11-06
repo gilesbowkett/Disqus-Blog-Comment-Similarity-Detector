@@ -1,1 +1,1 @@
-(http://gilesbowkett.blogspot.com/2010/11/blog-comment-similarity-detector-free.html)[http://gilesbowkett.blogspot.com/2010/11/blog-comment-similarity-detector-free.html]
+[http://gilesbowkett.blogspot.com/2010/11/blog-comment-similarity-detector-free.html](http://gilesbowkett.blogspot.com/2010/11/blog-comment-similarity-detector-free.html)
