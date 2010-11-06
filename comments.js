@@ -114,15 +114,20 @@ for (var tweetIndex1 in tokenized) {
   // me. it would mean I figured out tail-call optimization myself, years ago, before I ever stuided functional
   // programming, back when I was writing Perl. that would be exciting news to receive.
   if (0 == tweetIndex1) {
+    // we always display the first tweet
     tweetAsArray1["displayable"] = true;
   } else {
     for (var tweetIndex2 in tokenized) {
       var tweetAsArray2 = tokenized[tweetIndex2];
+
+      // skip tweets we've seen already
       if (1 == tweetIndex1 || tweetIndex1 > tweetIndex2) {
+
         // the similarity of a tweet to another tweet is the ratio of its intersecting elements to its total elements
         var intersection = _.intersect(tweetAsArray1, tweetAsArray2),
             similarityPercentageForTweet1 = Math.round(intersection.length / tweetAsArray1.length * 100),
             similarityPercentageForTweet2 = Math.round(intersection.length / tweetAsArray2.length * 100);
+
         // we skip to the next tweet if we find this tweet is either A) more than 50% similar to the next or B) vice versa
         if (50 < similarityPercentageForTweet1 && 50 < similarityPercentageForTweet2) {
           break;
