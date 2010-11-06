@@ -5,7 +5,8 @@ var sys = require("sys"),
 // actual sample data pulled directly from the Disqus code on the MetaOptimize blog post
 
 // many tweets are identical in their content, except for using a distinct shortened URL, including several instances
-// where the url-shortener is the same service.
+// where the url-shortener is the same service. in the following actual bona fide real-world sample data, all the tweets
+// but one are highly similar.
 
 var DsqLocal = {
   'trackbacks': [
