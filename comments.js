@@ -107,7 +107,12 @@ for (var tweetIndex1 in tokenized) {
   var tweetAsArray1 = tokenized[tweetIndex1];
   tweetAsArray1["displayable"] = false;
 
-  // this should be recursive, but I did the stupid for-loop way. nobody's perfect
+  // this should be recursive, but I did the stupid for-loop way. nobody's perfect. wait. I think the way
+  // that I think of as "the stupid for-loop way" might actually be tail-call optimization. I could be wrong,
+  // though, because I don't know what tail-call optimization is. or at least I don't remember. the stupid
+  // for-loop way is something I figured out years ago. if this is tail-call optimization, somebody please tell
+  // me. it would mean I figured out tail-call optimization myself, years ago, before I ever stuided functional
+  // programming, back when I was writing Perl. that would be exciting news to receive.
   if (0 == tweetIndex1) {
     tweetAsArray1["displayable"] = true;
   } else {
