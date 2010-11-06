@@ -111,7 +111,7 @@ _.each(tokenized, function(tweetAsArray1) {
     if (tweetAsArray1 != tweetAsArray2) {
       // the similarity of a tweet to another tweet is the ratio of its intersecting elements to its total elements
       var intersection = _.intersect(tweetAsArray1, tweetAsArray2),
-          similarityPercentageForTweet1 = Math.round(intersection.length / tweetAsArray1.length * 100);
+          similarityPercentageForTweet1 = Math.round(intersection.length / tweetAsArray1.length * 100),
           similarityPercentageForTweet2 = Math.round(intersection.length / tweetAsArray2.length * 100);
 
       // you can uncomment this to see a report, tweet by tweet, on what this method is doing
@@ -133,3 +133,35 @@ _.each(tokenized, function(tweetAsArray1) {
     }
   });
 });
+
+// compare every tweet to every other tweet
+for (var tweetIndex1 in tokenized) {
+  var tweetAsArray1 = tokenized[tweetIndex1];
+  tweetAsArray1["displayable"] = false;
+
+  // this should be recursive, but I did the stupid for-loop way. nobody's perfect
+  if (0 == tweetIndex1) {
+    tweetAsArray1["displayable"] = true;
+  } else {
+    for (var tweetIndex2 in tokenized) {
+      var tweetAsArray2 = tokenized[tweetIndex2];
+      if (1 == tweetIndex1 || tweetIndex1 > tweetIndex2) {
+        // the similarity of a tweet to another tweet is the ratio of its intersecting elements to its total elements
+        var intersection = _.intersect(tweetAsArray1, tweetAsArray2),
+            similarityPercentageForTweet1 = Math.round(intersection.length / tweetAsArray1.length * 100),
+            similarityPercentageForTweet2 = Math.round(intersection.length / tweetAsArray2.length * 100);
+        // we skip to the next tweet if we find this tweet is either A) more than 50% similar to the next or B) vice versa
+        if (50 < similarityPercentageForTweet1 && 50 < similarityPercentageForTweet2) {
+          break;
+        }
+        tweetAsArray1["displayable"] = true;
+      }
+    }
+  }
+
+  // if the tweet is displayable, display it
+  if (tweetAsArray1.displayable) {
+    sys.puts(tweetAsArray1.join());
+  }
+}
+
