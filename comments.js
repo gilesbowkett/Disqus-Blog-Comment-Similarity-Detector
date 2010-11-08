@@ -2,10 +2,11 @@ var sys = require("sys"),
     utils = require("utils"),
     _ = require("./vendor/underscore/underscore.js")._;
 
-// actual sample data pulled directly from the Disqus code on the MetaOptimize blog post
+// actual sample data pulled directly from the Disqus code on the MetaOptimize blog post. I added one fake tweet
+// for testing purposes, all others are real, and selected randomly.
 
 // many tweets are identical in their content, except for using a distinct shortened URL, including several instances
-// where the url-shortener is the same service. all the tweets but one are highly similar.
+// where the url-shortener is the same service. all the real sample tweets but one are highly similar.
 
 var DsqLocal = {
   'trackbacks': [
@@ -82,6 +83,12 @@ var DsqLocal = {
     'excerpt':  "NLP Challenge: Find semantically related terms over a large vocabulary (1M)? http:\/\/bit.ly\/bqvIPw ",
     'type':    "trackback"    }
 ,    {
+    'author_name':  "Arbitrary Unique Tweet",
+    'author_url':  "http:\/\/twitter.com\/josephjay\/status\/734141192601601",
+    'date':    "11\/06\/2010 02:20 AM",
+    'excerpt':  "I like turtles", // all other tweets are real, this one I threw in as a test
+    'type':    "trackback"    }
+,    {
     'author_name':  "Joe",
     'author_url':  "http:\/\/twitter.com\/josephjay\/status\/734141192601601",
     'date':    "11\/06\/2010 02:20 AM",
@@ -133,7 +140,7 @@ for (var tweetIndex1 in tokenized) {
 
   // if the tweet is displayable, display it
   if (tweetAsArray1.displayable) {
-    sys.puts(tweetAsArray1.join());
+    sys.puts(tweetAsArray1.join(" "));
   }
 }
 
